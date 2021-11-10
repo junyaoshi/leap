@@ -15,7 +15,7 @@ railrl/.idea/
 *.ipynb
 *.prof
 railrl/launchers/config.py
-*/mjkey.txt
+# */mjkey.txt
 */*/.mujoco
 *.jpg
 *.img
