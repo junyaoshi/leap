@@ -1,11 +1,11 @@
 CODE_DIRS_TO_MOUNT = [
-    'your-leap-code-path',
-    'your-multiworld-code-path',
+    '/home/junyao/leap_suite/leap'  # 'your-leap-code-path',
+    '/home/junyao/leap_suite/multiworld'  # 'your-multiworld-code-path',
 ]
 DIR_AND_MOUNT_POINT_MAPPINGS = []
-LOCAL_LOG_DIR = 'your-path-here'
+LOCAL_LOG_DIR = '/home/junyao/leap_suite/logs'
 RUN_DOODAD_EXPERIMENT_SCRIPT_PATH = (
-   'your-base-code-path/railrl/launchers/run_experiment_from_doodad.py'
+    '/home/junyao/leap_suite/leap/railrl/launchers/run_experiment_from_doodad.py'
 )
-DOODAD_DOCKER_IMAGE_SSH = 'your-docker-path'
-GPU_DOODAD_DOCKER_IMAGE_SSH = 'your-docker-path'
+DOODAD_DOCKER_IMAGE_SSH = 'junyaoshi/leap'
+GPU_DOODAD_DOCKER_IMAGE_SSH = 'junyaoshi/leap'
