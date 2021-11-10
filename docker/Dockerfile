@@ -29,6 +29,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.7-dev python3.7
 RUN virtualenv --python=python3.7 env
 
 #RUN rm /usr/bin/python
+RUN rm /usr/bin/pip
 RUN ln -s /env/bin/python3.7 /usr/bin/python
 RUN ln -s /env/bin/pip3.7 /usr/bin/pip
 RUN ln -s /env/bin/pytest /usr/bin/pytest
