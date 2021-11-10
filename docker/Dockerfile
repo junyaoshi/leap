@@ -3,7 +3,7 @@
 # The image below is a pinned version of nvidia/cuda:9.1-cudnn7-devel-ubuntu16.04 (from Jan 2018)
 # If updating the base image, be sure to test on GPU since it has broken in the past.
 #FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
-FROM nvidia/cudagl:9.0-runtime-ubuntu16.04
+FROM nvidia/cudagl:11.4.0-runtime-ubuntu20.04
 
 RUN apt-get update -q \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -25,12 +25,12 @@ RUN apt-get update -q \
     && rm -rf /var/lib/apt/lists/*
 
 RUN DEBIAN_FRONTEND=noninteractive add-apt-repository --yes ppa:deadsnakes/ppa && apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.5-dev python3.5 python3-pip
-RUN virtualenv --python=python3.5 env
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --yes python3.7-dev python3.7 python3-pip
+RUN virtualenv --python=python3.7 env
 
 RUN rm /usr/bin/python
-RUN ln -s /env/bin/python3.5 /usr/bin/python
-RUN ln -s /env/bin/pip3.5 /usr/bin/pip
+RUN ln -s /env/bin/python3.7 /usr/bin/python
+RUN ln -s /env/bin/pip3.7 /usr/bin/pip
 RUN ln -s /env/bin/pytest /usr/bin/pytest
 
 RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sci-artifacts/manual-builds/patchelf_0.9_amd64.elf \
@@ -39,11 +39,11 @@ RUN curl -o /usr/local/bin/patchelf https://s3-us-west-2.amazonaws.com/openai-sc
 ENV LANG C.UTF-8
 
 RUN mkdir -p /root/.mujoco \
-    && wget https://www.roboti.us/download/mjpro150_linux.zip -O mujoco.zip \
+    && wget https://roboti.us/download/mujoco200_linux.zip -O mujoco.zip \
     && unzip mujoco.zip -d /root/.mujoco \
     && rm mujoco.zip
 COPY ./mjkey.txt /root/.mujoco/
-ENV LD_LIBRARY_PATH /root/.mujoco/mjpro150/bin:${LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH /root/.mujoco/mujoco200/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 COPY vendor/Xdummy /usr/local/bin/Xdummy
@@ -59,24 +59,25 @@ COPY ./requirements.txt /mujoco_py/
 COPY ./requirements.dev.txt /mujoco_py/
 RUN pip install -r requirements.txt
 RUN pip install -r requirements.dev.txt
-RUN pip install cloudpickle==0.5.2
-RUN pip install cached-property==1.3.1
+#RUN pip install cloudpickle==0.5.2
+RUN pip install cached-property
 # For atari-py
 RUN apt-get install -y zlib1g-dev swig cmake
-RUN pip install mujoco_py==1.50.1.56
-RUN pip install gym[all]==0.10.5
-RUN pip install gitpython==2.1.7
-RUN pip install gtimer==1.0.0b5
+RUN pip install mujoco_py
+RUN pip install gym[all]
+RUN pip install gitpython
+RUN pip install gtimer
 RUN pip install pygame
-RUN pip install awscli==1.11.179
-RUN pip install boto3==1.4.8
-RUN pip install dominate==2.3.1
-RUN pip install ray==0.2.2
-RUN pip install path.py==10.3.1
+RUN pip install awscli
+RUN pip install boto3
+RUN pip install dominate
+RUN pip install ray
+RUN pip install path.py
 
 #RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
-RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
-RUN pip install joblib==0.9.4
+#RUN pip install http://download.pytorch.org/whl/cu90/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
+RUN pip install torch
+RUN pip install joblib
 
 # If you're curious what the DEBIAN_FRONTEND is all about:
 # https://askubuntu.com/questions/506158/unable-to-initialize-frontend-dialog-when-using-ssh
@@ -98,17 +99,17 @@ WORKDIR /root/code
 # trigger the mujoco_py cythonization
 RUN python -c 'import mujoco_py'
 
-RUN pip install opencv-python==3.4.0.12
-RUN pip install torchvision==0.2.0
-RUN pip install sk-video==1.1.10
-RUN pip install matplotlib==2.2.2
-RUN pip install numpy-stl==2.7.0
-RUN pip install pyquaternion==0.9.2
+RUN pip install opencv-python
+RUN pip install torchvision
+RUN pip install sk-video
+RUN pip install matplotlib
+RUN pip install numpy-stl
+RUN pip install pyquaternion
 
 RUN pip uninstall numpy -y
-RUN pip install numpy==1.15.0
+RUN pip install numpy
 
-RUN pip install gin-config==0.1.4
-RUN pip install tensorflow-gpu==1.14.0rc0
-RUN pip install tf-agents==0.2.0rc2
-RUN pip install tensorflow-probability==0.7.0rc0
+RUN pip install gin-config
+RUN pip install tensorflow-gpu
+RUN pip install tf-agents
+RUN pip install tensorflow-probability
