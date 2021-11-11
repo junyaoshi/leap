@@ -124,3 +124,6 @@ RUN python -m pip install gin-config
 RUN python -m pip install tensorflow-gpu
 RUN python -m pip install tf-agents
 RUN python -m pip install tensorflow-probability
+
+RUN python -m pip uninstall -y cloudpickle
+RUN python -m pip install cloudpickle==1.2.0
