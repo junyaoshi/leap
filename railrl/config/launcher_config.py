@@ -1,6 +1,6 @@
 CODE_DIRS_TO_MOUNT = [
-    '/home/junyao/leap_suite/leap'  # 'your-leap-code-path',
-    '/home/junyao/leap_suite/multiworld'  # 'your-multiworld-code-path',
+    '/home/junyao/leap_suite/leap',  # 'your-leap-code-path',
+    '/home/junyao/leap_suite/multiworld',  # 'your-multiworld-code-path',
 ]
 DIR_AND_MOUNT_POINT_MAPPINGS = []
 LOCAL_LOG_DIR = '/home/junyao/leap_suite/logs'
