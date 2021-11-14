@@ -65,7 +65,7 @@ RUN python -m pip install -r requirements.txt
 RUN python -m pip install -r requirements.dev.txt
 RUN python -m pip install lockfile
 
-#RUN python -m pip install cloudpickle==0.5.2
+RUN python -m pip install cloudpickle==0.5.2
 RUN python -m pip install cached-property
 # For atari-py
 RUN apt-get install -y zlib1g-dev swig cmake
@@ -75,7 +75,7 @@ RUN python -m pip install -U 'mujoco-py<1.50.2,>=1.50.1'
 RUN python -c 'import mujoco_py'
 
 
-RUN python -m pip install gym[all]==0.15.4
+RUN python -m pip install gym[all]==0.10.4
 RUN python -m pip install gitpython
 RUN python -m pip install gtimer
 RUN python -m pip install pygame
@@ -111,19 +111,21 @@ WORKDIR /root/code
 RUN python -c 'import mujoco_py'
 
 RUN python -m pip install opencv-python
-RUN python -m pip install torchvision
-RUN python -m pip install sk-video
-RUN python -m pip install matplotlib
-RUN python -m pip install numpy-stl
-RUN python -m pip install pyquaternion
+RUN python -m pip install torchvision==0.2.0
+RUN python -m pip install sk-video==1.1.10
+RUN python -m pip install matplotlib==2.2.2
+RUN python -m pip install numpy-stl==2.7.0
+RUN python -m pip install pyquaternion==0.9.2
 
 RUN python -m pip uninstall numpy -y
-RUN python -m pip install numpy
+RUN python -m pip install numpy==1.15.0
 
-RUN python -m pip install gin-config
-RUN python -m pip install tensorflow-gpu
-RUN python -m pip install tf-agents
-RUN python -m pip install tensorflow-probability
+RUN python -m pip install gin-config==0.1.4
+RUN python -m pip install tensorflow-gpu==1.14.0
+RUN python -m pip install tf-agents==0.2.0rc2
+RUN python -m pip install tensorflow-probability==0.7.0rc0
 
 RUN python -m pip uninstall -y cloudpickle
-RUN python -m pip install cloudpickle==1.2.0
+RUN python -m pip install cloudpickle==0.5.2
+RUN python -m pip list | grep gym
+RUN python -m pip list | grep cloudpickle
